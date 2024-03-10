@@ -4,6 +4,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.WARNING)
     warnings.filterwarnings('ignore')
 
+    import requests
     from dotenv import load_dotenv
     load_dotenv()
     
@@ -23,6 +24,9 @@ if __name__ == "__main__":
         bot.send_message(
             f'Token refreshed ({kis.cano})\n'
             + data['token_expired'])
+    except requests.exceptions.RequestException as e:
+        print(e.response.status_code)
+        print(e.response.reason)
     except Exception as e:
         print(type(e))
         print(e)
